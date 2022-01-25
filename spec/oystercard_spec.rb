@@ -14,5 +14,8 @@ describe Oystercard do
     subject.top_up(20)
     expect { subject.deduct(15)}.to change { subject.balance}.by (-15)
   end
+  it 'card defaults to false if not in a journey' do
+    expect(subject.in_journey?).to eq (false)
+  end
 end
 
