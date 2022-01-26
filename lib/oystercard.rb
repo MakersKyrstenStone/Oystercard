@@ -4,7 +4,8 @@ class Oystercard
   alias :in_journey? :in_journey
 
   MAX_BALANCE = 100
-  
+  MIN_BALANCE = 1
+
   def initialize 
     @balance = 0
     @in_journey = false
@@ -20,6 +21,7 @@ class Oystercard
   end
 
   def touch_in
+    raise "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } " if @balance < 1
     @in_journey = true
   end
  

@@ -18,11 +18,18 @@ describe Oystercard do
     expect(subject.in_journey?).to eq (false)
   end
   it 'knows when card is in use' do
-    expect{ subject.touch_in }.to change {subject.in_journey?}.to true
+    subject.top_up(5)
+    expect{ subject.touch_in }.to change {subject.in_journey?}.to eq true
   end
   it 'knows when card no longer in use' do
+    subject.top_up(5)
     subject.touch_in
-    expect{ subject.touch_out }.to change {subject.in_journey?}.to false
+    expect{ subject.touch_out }.to change {subject.in_journey?}.to eq false
+  end
+
+  it 'returns an error if the min card bal not met' do
+      expect{ subject.touch_in }.to raise_error "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } "
   end
 
 end
+
