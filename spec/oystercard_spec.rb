@@ -30,6 +30,10 @@ describe Oystercard do
   it 'returns an error if the min card bal not met' do
       expect{ subject.touch_in }.to raise_error "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } "
   end
-
+  it 'reduces balance by min fare when touch out' do
+    subject.top_up(5)
+    subject.touch_in
+    expect{ subject.touch_out }.to change {subject.balance}.by (-1)
+  end
 end
 
