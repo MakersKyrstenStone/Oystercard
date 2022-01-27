@@ -16,18 +16,22 @@ class Oystercard
     @balance += value
   end
 
-  def deduct(value)
-    @balance -= value
-  end
-
   def touch_in
     raise "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } " if @balance < 1
     @in_journey = true
   end
  
   def touch_out
-    deduct(1)
+    self.deduct(1)
     @in_journey = false
   end
+
+  private
+
+  def deduct(value)
+    @balance -= value
+  end
+
 end
 
+#need to access private method from rspec????
