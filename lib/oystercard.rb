@@ -1,8 +1,6 @@
 class Oystercard
   attr_reader :balance, :entry_station
-  attr_reader :in_journey
-  alias :in_journey? :in_journey
-
+  
   MAX_BALANCE = 100
   MIN_BALANCE = 1
 
@@ -26,6 +24,10 @@ class Oystercard
     self.deduct(1)
     @in_journey = false
     @entry_station = nil
+  end
+
+  def in_journey?
+    !!entry_station
   end
 
   private

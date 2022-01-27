@@ -20,28 +20,23 @@ describe Oystercard do
       expect(subject.in_journey?).to eq (false)
     end
     it 'knows when card is in use' do
-      
       expect{ subject.touch_in(entry_station) }.to change {subject.in_journey?}.to eq true
     end
     it 'knows when card no longer in use' do
-      
       subject.touch_in(entry_station)
       expect{ subject.touch_out }.to change {subject.in_journey?}.to eq false
     end
     
     it 'reduces balance by min fare when touch out' do
-      
       subject.touch_in(entry_station)
       expect{ subject.touch_out }.to change {subject.balance}.by (-1)
     end
 
     it 'remembers the entry station' do 
-      
       expect{ subject.touch_in(entry_station)}.to change {subject.entry_station}.to eq (entry_station)
     end
 
     it 'forgets station when touch_out is used' do
-      
       subject.touch_in(entry_station)
       expect{ subject.touch_out}.to change {subject.entry_station}.to nil
     end
@@ -50,6 +45,7 @@ describe Oystercard do
   it 'checks a card has a balance of zero on creation' do
     expect(subject.balance).to eq(0)
     end
+
   it 'returns an error if the min card bal not met' do
     expect{ subject.touch_in(entry_station) }.to raise_error "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } "
   end
