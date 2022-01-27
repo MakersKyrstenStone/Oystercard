@@ -1,5 +1,5 @@
 class Oystercard
-  attr_reader :balance
+  attr_reader :balance, :entry_station
   attr_reader :in_journey
   alias :in_journey? :in_journey
 
@@ -16,14 +16,16 @@ class Oystercard
     @balance += value
   end
 
-  def touch_in
+  def touch_in(entry_station)
     raise "Sorry not enough credit to travel, Min is #{ Oystercard::MIN_BALANCE } " if @balance < 1
     @in_journey = true
+    @entry_station = entry_station
   end
  
   def touch_out
     self.deduct(1)
     @in_journey = false
+    @entry_station = nil
   end
 
   private
